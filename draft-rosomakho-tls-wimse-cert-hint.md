@@ -9,7 +9,7 @@ number:
 date:
 consensus: true
 v: 3
-area: Security
+area: ""
 workgroup: "Transport Layer Security"
 keyword:
  - tls
@@ -19,11 +19,11 @@ keyword:
  - hint
 venue:
   group: "Transport Layer Security"
-  type: Working Group
-  mail: tls@ietf.org
-  arch: https://mailarchive.ietf.org/arch/browse/tls/
-  github: yaroslavros/tls-wimse-cert-hint
-  latest: https://yaroslavros.github.io/tls-wimse-cert-hint/draft-rosomakho-tls-wimse-cert-hint.html
+  type: ""
+  mail: "tls@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/tls/"
+  github: "yaroslavros/tls-wimse-cert-hint"
+  latest: "https://yaroslavros.github.io/tls-wimse-cert-hint/draft-rosomakho-tls-wimse-cert-hint.html"
 
 author:
  -
