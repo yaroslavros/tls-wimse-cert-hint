@@ -19,35 +19,38 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Workload Identifier Hint for TLS ClientHello"
+abbrev: "Workload Identifier Hint for TLS ClientHello"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-rosomakho-tls-wimse-cert-hint-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: Security
+workgroup: "Transport Layer Security"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - tls
+ - wimse
+ - identifier
+ - workload
+ - hint
 venue:
-  group: WG
+  group: "Transport Layer Security"
   type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  mail: tls@ietf.org
+  arch: https://mailarchive.ietf.org/arch/browse/tls/
+  github: yaroslavros/tls-wimse-cert-hint
+  latest: https://yaroslavros.github.io/tls-wimse-cert-hint/draft-rosomakho-tls-wimse-cert-hint.html
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+      ins: "Y. Rosomakho"
+      fullname: Yaroslav Rosomakho
+      organization: Zscaler
+      email: yrosomakho@zscaler.com
 
 normative:
 
