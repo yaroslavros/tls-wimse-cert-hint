@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Workload Identifier Hint for TLS ClientHello</title>
+<title>Workload Identifier Scope Hint for TLS ClientHello</title>
 <meta content="Yaroslav Rosomakho" name="author">
 <meta content="
-       This document defines a TLS extension that allows clients to indicate one or more workload identifiers in the ClientHello message. These identifiers serve as identity hints, enabling the server to determine whether client authentication is required and to select appropriate policy or certificate validation logic before completing the handshake. This mechanism supports more efficient policy enforcement in mutual TLS deployments and can be used to optimise authentication decisions based on the declared identity context of the client. To protect the confidentiality of workload identifiers, this extension can be used in combination with Encrypted Client Hello (ECH). 
+       This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the ClientHello message. Each scope consists of a URI scheme and trust domain component, representing the administrative domain and identifier namespace in which the client operates. These identifier scopes serve as hints to enable the server to determine whether client authentication is required and which policies or trust anchors should apply. This mechanism improves efficiency in mutual TLS deployments while minimising the exposure of sensitive identifier information. To protect confidentiality, this extension can be used in conjunction with Encrypted Client Hello (ECH). 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
 <meta content="tls" name="keyword">
@@ -24,7 +24,7 @@
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.0
-    platformdirs 4.3.7
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.3
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">Workload Identifier Hint for TLS ClientH</td>
+<td class="center">Workload Identifier Scope Hint for TLS C</td>
 <td class="right">May 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rosomakho</td>
-<td class="center">Expires 13 November 2025</td>
+<td class="center">Expires 21 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-rosomakho-tls-wimse-cert-hint-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-12" class="published">12 May 2025</time>
+<time datetime="2025-05-20" class="published">20 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-13">13 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-21">21 November 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1080,10 +1080,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Workload Identifier Hint for TLS ClientHello</h1>
+<h1 id="title">Workload Identifier Scope Hint for TLS ClientHello</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a TLS extension that allows clients to indicate one or more workload identifiers in the ClientHello message. These identifiers serve as identity hints, enabling the server to determine whether client authentication is required and to select appropriate policy or certificate validation logic before completing the handshake. This mechanism supports more efficient policy enforcement in mutual TLS deployments and can be used to optimise authentication decisions based on the declared identity context of the client. To protect the confidentiality of workload identifiers, this extension can be used in combination with Encrypted Client Hello (ECH).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the ClientHello message. Each scope consists of a URI scheme and trust domain component, representing the administrative domain and identifier namespace in which the client operates. These identifier scopes serve as hints to enable the server to determine whether client authentication is required and which policies or trust anchors should apply. This mechanism improves efficiency in mutual TLS deployments while minimising the exposure of sensitive identifier information. To protect confidentiality, this extension can be used in conjunction with Encrypted Client Hello (ECH).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1120,7 +1120,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1167,13 +1167,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-confidentiality-of-workload" class="internal xref">Confidentiality of Workload Identifiers</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-confidentiality-of-workload" class="internal xref">Confidentiality of Workload Identifier Scopes</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-unauthenticated-hints" class="internal xref">Unauthenticated Hints</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-identifier-enumeration" class="internal xref">Identifier Enumeration</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-identifier-scopes-enumerati" class="internal xref">Identifier Scopes Enumeration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-server-response-behaviour" class="internal xref">Server Response Behaviour</a></p>
@@ -1201,22 +1201,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Mutual TLS (mTLS) is commonly used to authenticate both endpoints of a <span>[<a href="#TLS" class="cite xref">TLS</a>]</span> connection, especially in service-to-service communication within distributed systems. In many deployments, client authentication is conditional: only certain clients are required to present a certificate, and the decision is based on the nature of the client, its identity or role.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document defines a TLS extension that allows clients to indicate one or more Workload Identifiers [Reference TBD] in the <code>ClientHello</code> message (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>). These identifiers act as identity hints that inform the server of the client intended identity before the TLS handshake is completed. Based on this information, the server can determine whether client certificate authentication is desirable and, if so, what policy or certificate validation rules should apply.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">Mutual TLS (mTLS) is commonly used to authenticate both endpoints of a <span>[<a href="#TLS" class="cite xref">TLS</a>]</span> connection, especially in service-to-service communication within distributed systems. In many deployments, client authentication is conditional: only certain clients are required to present a certificate, and the decision is based on the nature of the client.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the <code>ClientHello</code> message (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>). Each identifier scope is a subset of Workload Identifier [Reference TBD] and consists of a URI scheme and trust domain (e.g., <code>spiffe://example.org</code> or <code>https://botfarm.example.com</code>) and indicates a namespace under which the client may present an authenticated identifier. Workload identifier scopes act as hints that inform the server of the client intended identifier before the TLS handshake is completed. Based on this information, the server can determine whether client certificate authentication is desirable and, if so, what policy or certificate validation rules should apply.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This approach enables more flexible and efficient authentication strategies in environments where different clients may be subject to different requirements. For example:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-4.1">
-          <p id="section-1-4.1.1">A server may enforce mTLS only for specific workloads and allow others to connect without client certificate authentication.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-4.1.1">A server may enforce mTLS only for clients of specific workload identifier scope and allow others to connect without client certificate authentication on TLS layer.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-4.2">
-          <p id="section-1-4.2.1">A server may use the provided identifiers to generate an appropriate list of Certificate Authorities extension (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.2.4" class="relref">Section 4.2.4</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>) in <code>CertificateRequest</code> message (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.3.2" class="relref">Section 4.3.2</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>).<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-4.2.1">A server may use the provided workload identifier scopes to generate an appropriate list of Certificate Authorities extension (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.2.4" class="relref">Section 4.2.4</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>) in <code>CertificateRequest</code> message (<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.3.2" class="relref">Section 4.3.2</a> of [<a href="#TLS" class="cite xref">TLS</a>]</span>).<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-4.3">
-          <p id="section-1-4.3.1">The server may reject the connection early if none of the advertised identifiers are authorised.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-1-4.3.1">The server may reject the connection early if none of the advertised workload identifier scopes are authorized.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-5">Workload Identifiers are conveyed as a list of URIs, allowing clients to indicate multiple possible identities. The interpretation and validation of these identifiers is implementation-specific and may be governed by local policy or external trust frameworks.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">In cases where the Workload Identifiers are sensitive or may reveal internal deployment details, clients are encouraged to include this extension only in <code>ClientHelloInner</code> of Encrypted Client Hello (<span>[<a href="#ECH" class="cite xref">ECH</a>]</span>) to ensure confidentiality of the identity hints.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-5">By only sending scheme and trust domain (omitting the path), this extension limits exposure of cleartext information. Where further confidentiality is desired, clients are encouraged to include this extension only in <code>ClientHelloInner</code> of Encrypted Client Hello (<span>[<a href="#ECH" class="cite xref">ECH</a>]</span>) to ensure confidentiality of the workload identifier scopes.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1235,26 +1234,26 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-tls-extension-format">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-tls-extension-format" class="section-name selfRef">TLS Extension Format</a>
       </h2>
-<p id="section-3-1">This document defines a new TLS extension named <code>workload_identifier_hint</code>, which is carried in the <code>ClientHello</code> message. The extension provides the server with one or more workload identifiers that the client associates with itself. This allows the server to evaluate authentication requirements prior to sending a <code>CertificateRequest</code> message.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">The <code>workload_identifier_hint</code> extension is structured as follows:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-1">This document defines a new TLS extension named <code>workload_identifier_scope_hint</code>, which is carried in the <code>ClientHello</code> message. The extension provides the server with one or more workload identifier scopes that the client associates with itself. This allows the server to evaluate authentication requirements prior to sending a <code>CertificateRequest</code> message.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">The <code>workload_identifier_scope_hint</code> extension is structured as follows:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-3">
 <pre>
-   opaque WorkloadIdentifier&lt;1..2^16-1&gt;;
+   opaque WorkloadIdentifierScope&lt;1..2^16-1&gt;;
 
    struct {
-       WorkloadIdentifier identifiers&lt;3..2^16-1&gt;;
-   } WorkloadIdentifierHintExtension;
+       WorkloadIdentifierScope identifierscopes&lt;3..2^16-1&gt;;
+   } WorkloadIdentifierScopeHintExtension;
 </pre><a href="#section-3-3" class="pilcrow">¶</a>
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-3-4">
         <dt id="section-3-4.1">
-<code>identifiers</code>:</dt>
+<code>identifierscopes</code>:</dt>
         <dd style="margin-left: 1.5em" id="section-3-4.2">
-          <p id="section-3-4.2.1">A list of Workload Identifiers as defined in TBD. Each <code>WorkloadIdentifier</code> is an absolute URI encoded in UTF-8, as defined in <span>[<a href="#URI" class="cite xref">URI</a>]</span>.<a href="#section-3-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-4.2.1">A list of UTF-8 encoded absolute URI absolute URI strings as defined in <span>[<a href="#URI" class="cite xref">URI</a>]</span> containing only the scheme and trust domain components of Workload Identifiers defined in TBD.<a href="#section-3-4.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-3-5">Clients <span class="bcp14">MAY</span> include multiple identifiers if they represent multiple possible roles or fallback identities.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-5">The path, query, and fragment components <span class="bcp14">MUST NOT</span> be included. Clients <span class="bcp14">MAY</span> include multiple identity scopes if they operate within more than one trust domain or namespace.<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">The extension <span class="bcp14">MUST</span> appear only in the ClientHello. Servers <span class="bcp14">MUST</span> abort TLS handshake with an <code>unexpected_message</code> alert if this extension appears in any other handshake message. Similarly, clients <span class="bcp14">MUST</span> abort TLS handshake if this extension appears in any message from the server.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <div id="server-processing-rules">
 <section id="section-3.1">
@@ -1264,19 +1263,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1-1">Upon receiving the extension, the server:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1"><span class="bcp14">MAY</span> use the identifiers to determine whether to send a <code>CertificateRequest</code> message.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1"><span class="bcp14">MAY</span> use the identifier scopes to determine whether to send a <code>CertificateRequest</code> message.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1"><span class="bcp14">MAY</span> use the identifiers to construct Certificate Authorities extension in the <code>CertificateRequest</code> message.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1"><span class="bcp14">MAY</span> use the identifier scopes to construct Certificate Authorities extension in the <code>CertificateRequest</code> message.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.3">
-            <p id="section-3.1-2.3.1"><span class="bcp14">MAY</span> use the identifiers to select a trust anchor or policy.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.3.1"><span class="bcp14">MAY</span> use the identifier scopes to select a trust anchor or policy.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.4">
-            <p id="section-3.1-2.4.1"><span class="bcp14">MAY</span> reject the handshake early with <code>handshake_failure</code> alert if none of the identifiers are acceptable.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.4.1"><span class="bcp14">MAY</span> reject the handshake early with <code>handshake_failure</code> alert if none of the identifier scopes are acceptable.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.5">
-            <p id="section-3.1-2.5.1"><span class="bcp14">MUST NOT</span> treat inclusion of the extension as proof of identity. The identifiers are advisory and unauthenticated until verified during client authentication.<a href="#section-3.1-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.5.1"><span class="bcp14">MUST NOT</span> treat inclusion of the extension as proof of identity. The identifier scopes are advisory and unauthenticated until verified during client authentication.<a href="#section-3.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.1-3">If the extension is absent, the server proceeds with the default client authentication behavior.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
@@ -1290,14 +1289,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-4-1">This extension is intended to improve the flexibility of client authentication policies in TLS. However, because it introduces unauthenticated identity hints early in the handshake, several security considerations apply.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<div id="confidentiality-of-workload-identifiers">
+<div id="confidentiality-of-workload-identifier-scopes">
 <section id="section-4.1">
         <h3 id="name-confidentiality-of-workload">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-confidentiality-of-workload" class="section-name selfRef">Confidentiality of Workload Identifiers</a>
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-confidentiality-of-workload" class="section-name selfRef">Confidentiality of Workload Identifier Scopes</a>
         </h3>
-<p id="section-4.1-1">Workload Identifiers may contain sensitive information, such as internal service names, deployment structure, or tenant-specific data. Since this extension is sent in the clear as part of the ClientHello, exposure of these identifiers may allow passive observers to infer client roles, access patterns, or security posture.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">To mitigate this risk, clients <span class="bcp14">SHOULD</span> include this extension only in ClinetHelloInner if <span>[<a href="#ECH" class="cite xref">ECH</a>]</span> is available. ECH encrypts the ClinetHelloInner and its extensions under the server's public key, preventing visibility of the identifiers to on-path observers.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">If ECH is not in use, clients <span class="bcp14">SHOULD</span> avoid including sensitive or detailed identifiers in this extension unless required by policy.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">Workload identifier scopes may contain sensitive information, such as deployment structure or tenant-specific data. Since this extension is sent in the clear as part of the ClientHello, exposure of these identifier scopes may allow passive observers to infer client roles, access patterns, or security posture.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">To mitigate this risk, clients <span class="bcp14">SHOULD</span> include this extension only in ClinetHelloInner if <span>[<a href="#ECH" class="cite xref">ECH</a>]</span> is available. ECH encrypts the ClinetHelloInner and its extensions under the server's public key, preventing visibility of the identifier scopes to on-path observers.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">If ECH is not in use, clients <span class="bcp14">SHOULD</span> avoid including sensitive or detailed identifier scopes in this extension unless required by policy.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="unauthenticated-hints">
@@ -1305,19 +1304,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-unauthenticated-hints">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-unauthenticated-hints" class="section-name selfRef">Unauthenticated Hints</a>
         </h3>
-<p id="section-4.2-1">The workload identifiers conveyed in this extension are not authenticated. They are advisory in nature and <span class="bcp14">MUST NOT</span> be treated by the server as a proof of identity. Servers <span class="bcp14">MUST</span> perform full cryptographic verification of the client certificate before relying on any identity claim.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">Servers <span class="bcp14">MAY</span> enforce policies based on the presence or absence of expected identifiers in the <code>ClientHello</code>. However, this enforcement must be restricted to access control decisions prior to authentication, such astriggering client authentication or rejecting the handshake.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">The workload identifier scopes conveyed in this extension are not authenticated. They are advisory in nature and <span class="bcp14">MUST NOT</span> be treated by the server as a proof of identity. Servers <span class="bcp14">MUST</span> perform full cryptographic verification of the client certificate before relying on any identity claim.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">Servers <span class="bcp14">MAY</span> enforce policies based on the presence or absence of expected identifier scopes in the <code>ClientHello</code>. However, this enforcement must be restricted to access control decisions prior to authentication, such astriggering client authentication or rejecting the handshake.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="identifier-enumeration">
+<div id="identifier-scopes-enumeration">
 <section id="section-4.3">
-        <h3 id="name-identifier-enumeration">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-identifier-enumeration" class="section-name selfRef">Identifier Enumeration</a>
+        <h3 id="name-identifier-scopes-enumerati">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-identifier-scopes-enumerati" class="section-name selfRef">Identifier Scopes Enumeration</a>
         </h3>
-<p id="section-4.3-1">If ECH is not deployed, an attacker with network visibility may collect workload identifiers by observing repeated TLS handshakes. This could aid in reconnaissance or allow inference of infrastructure details. To reduce this risk, clients may:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">If ECH is not deployed, an attacker with network visibility may collect workload identifier scopes by observing repeated TLS handshakes. This could aid in reconnaissance or allow inference of infrastructure details. To reduce this risk, clients may:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3-2.1">
-            <p id="section-4.3-2.1.1">Use generic or opaque identifiers when full disclosure is not required.<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.3-2.1.1">Use generic or opaque identifier scopes when full disclosure is not required.<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.2">
             <p id="section-4.3-2.2.1">Limit use of the extension to trusted networks or peers.<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
@@ -1333,7 +1332,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-server-response-behaviour">
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-server-response-behaviour" class="section-name selfRef">Server Response Behaviour</a>
         </h3>
-<p id="section-4.4-1">Servers receiving unknown or malformed identifiers <span class="bcp14">SHOULD</span> ignore them and proceed with the default authentication policy. Servers <span class="bcp14">SHOULD NOT</span> terminate connections solely due to unrecognised identifiers unless explicitly configured to do so.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-1">Servers receiving unknown or malformed identifier scopes <span class="bcp14">SHOULD</span> ignore them and proceed with the default authentication policy. Servers <span class="bcp14">SHOULD NOT</span> terminate connections solely due to unrecognised identifier scopes unless explicitly configured to do so.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1346,7 +1345,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-5-1">IANA is requested to assign a new value from the TLS ExtensionType Values registry:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5-2.1">
-          <p id="section-5-2.1.1">The Extension Name should be workload_identifier_hint<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.1.1">The Extension Name should be workload_identifier_scope_hint<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.2">
           <p id="section-5-2.2.1">The TLS 1.3 value should be CH<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
