@@ -82,7 +82,7 @@ The `workload_identifier_scope_hint` extension is structured as follows:
 
 The path, query, and fragment components MUST NOT be included. Clients MAY include multiple identity scopes if they operate within more than one trust domain or namespace.
 
-The extension MUST appear only in the ClientHello. Servers MUST abort TLS handshake with an `unexpected_message` alert if this extension appears in any other handshake message. Similarly, clients MUST abort TLS handshake if this extension appears in any message from the server.
+The extension MUST appear only in the ClientHello. Servers MUST abort TLS handshake with an `illegal_parameter` alert if this extension appears in any other handshake message. Similarly, clients MUST abort TLS handshake if this extension appears in any message from the server.
 
 ## Server Processing Rules
 
