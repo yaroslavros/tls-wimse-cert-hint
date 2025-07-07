@@ -1,0 +1,313 @@
+
+
+
+
+Transport Layer Security                                    Y. Rosomakho
+Internet-Draft                                                   Zscaler
+Intended status: Standards Track                              J. Hoyland
+Expires: 8 January 2026                                       Cloudflare
+                                                             7 July 2025
+
+
+           Workload Identifier Scope Hint for TLS ClientHello
+               draft-rosomakho-tls-wimse-cert-hint-latest
+
+Abstract
+
+   This document defines a TLS extension that allows clients to indicate
+   one or more workload identifier scopes in the ClientHello message.
+   Each scope consists of a URI scheme and trust domain component,
+   representing the administrative domain and identifier namespace in
+   which the client operates.  These identifier scopes serve as hints to
+   enable the server to determine whether client authentication is
+   required and which policies or trust anchors should apply.  This
+   mechanism improves efficiency in mutual TLS deployments while
+   minimising the exposure of sensitive identifier information.  To
+   protect confidentiality, this extension can be used in conjunction
+   with Encrypted Client Hello (ECH).
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://yaroslavros.github.io/tls-wimse-cert-hint/draft-rosomakho-
+   tls-wimse-cert-hint.html.  Status information for this document may
+   be found at https://datatracker.ietf.org/doc/draft-rosomakho-tls-
+   wimse-cert-hint/.
+
+   Discussion of this document takes place on the Transport Layer
+   Security mailing list (mailto:tls@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/tls/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/tls/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/yaroslavros/tls-wimse-cert-hint.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 8 January 2026.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  TLS Extension Format
+     3.1.  Server Processing Rules
+   4.  Security Considerations
+     4.1.  Confidentiality of Workload Identifier Scopes
+     4.2.  Unauthenticated Hints
+     4.3.  Identifier Scopes Enumeration
+     4.4.  Server Response Behaviour
+   5.  IANA Considerations
+   6.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   Mutual TLS (mTLS) is commonly used to authenticate both endpoints of
+   a [TLS] connection, especially in service-to-service communication
+   within distributed systems.  In many deployments, client
+   authentication is conditional: only certain clients are required to
+   present a certificate, and the decision is based on the nature of the
+   client.
+
+   This document defines a TLS extension that allows clients to indicate
+   one or more workload identifier scopes in the ClientHello message
+   (Section 4.1.2 of [TLS]).  Each identifier scope is a subset of
+   Workload Identifier [Reference TBD] and consists of a URI scheme and
+   trust domain (e.g., spiffe://example.org or
+   https://botfarm.example.com) and indicates a namespace under which
+   the client may present an authenticated identifier.  Workload
+   identifier scopes act as hints that inform the server of the client
+   intended identifier before the TLS handshake is completed.  Based on
+   this information, the server can determine whether client certificate
+   authentication is desirable and, if so, what policy or certificate
+   validation rules should apply.
+
+   This approach enables more flexible and efficient authentication
+   strategies in environments where different clients may be subject to
+   different requirements.  For example:
+
+   *  A server may enforce mTLS only for clients of specific workload
+      identifier scope and allow others to connect without client
+      certificate authentication on TLS layer.
+
+   *  A server may use the provided workload identifier scopes to
+      generate an appropriate list of Certificate Authorities extension
+      (Section 4.2.4 of [TLS]) in CertificateRequest message
+      (Section 4.3.2 of [TLS]).
+
+   *  The server may reject the connection early if none of the
+      advertised workload identifier scopes are authorized.
+
+   By only sending scheme and trust domain (omitting the path), this
+   extension limits exposure of cleartext information.  Where further
+   confidentiality is desired, clients are encouraged to include this
+   extension only in ClientHelloInner of Encrypted Client Hello ([ECH])
+   to ensure confidentiality of the workload identifier scopes.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  TLS Extension Format
+
+   This document defines a new TLS extension named
+   workload_identifier_scope_hint, which is carried in the ClientHello
+   message.  The extension provides the server with one or more workload
+   identifier scopes that the client associates with itself.  This
+   allows the server to evaluate authentication requirements prior to
+   sending a CertificateRequest message.
+
+   The workload_identifier_scope_hint extension is structured as
+   follows:
+
+      opaque WorkloadIdentifierScope<1..2^16-1>;
+
+      struct {
+          WorkloadIdentifierScope identifierscopes<3..2^16-1>;
+      } WorkloadIdentifierScopeHintExtension;
+
+   identifierscopes:  A list of UTF-8 encoded absolute URI absolute URI
+      strings as defined in [URI] containing only the scheme and trust
+      domain components of Workload Identifiers defined in TBD.
+
+   The path, query, and fragment components MUST NOT be included.
+   Clients MAY include multiple identity scopes if they operate within
+   more than one trust domain or namespace.
+
+   The extension MUST appear only in the ClientHello.  Servers MUST
+   abort TLS handshake with an illegal_parameter alert if this extension
+   appears in any other handshake message.  Similarly, clients MUST
+   abort TLS handshake if this extension appears in any message from the
+   server.
+
+3.1.  Server Processing Rules
+
+   Upon receiving the extension, the server:
+
+   *  MAY use the identifier scopes to determine whether to send a
+      CertificateRequest message.
+
+   *  MAY use the identifier scopes to construct Certificate Authorities
+      extension in the CertificateRequest message.
+
+   *  MAY use the identifier scopes to select a trust anchor or policy.
+
+   *  MAY reject the handshake early with handshake_failure alert if
+      none of the identifier scopes are acceptable.
+
+   *  MUST NOT treat inclusion of the extension as proof of identity.
+      The identifier scopes are advisory and unauthenticated until
+      verified during client authentication.
+
+   If the extension is absent, the server proceeds with the default
+   client authentication behavior.
+
+4.  Security Considerations
+
+   This extension is intended to improve the flexibility of client
+   authentication policies in TLS.  However, because it introduces
+   unauthenticated identity hints early in the handshake, several
+   security considerations apply.
+
+4.1.  Confidentiality of Workload Identifier Scopes
+
+   Workload identifier scopes may contain sensitive information, such as
+   deployment structure or tenant-specific data.  Since this extension
+   is sent in the clear as part of the ClientHello, exposure of these
+   identifier scopes may allow passive observers to infer client roles,
+   access patterns, or security posture.
+
+   To mitigate this risk, clients SHOULD include this extension only in
+   ClinetHelloInner if [ECH] is available.  ECH encrypts the
+   ClinetHelloInner and its extensions under the server's public key,
+   preventing visibility of the identifier scopes to on-path observers.
+
+   If ECH is not in use, clients SHOULD avoid including sensitive or
+   detailed identifier scopes in this extension unless required by
+   policy.
+
+4.2.  Unauthenticated Hints
+
+   The workload identifier scopes conveyed in this extension are not
+   authenticated.  They are advisory in nature and MUST NOT be treated
+   by the server as a proof of identity.  Servers MUST perform full
+   cryptographic verification of the client certificate before relying
+   on any identity claim.
+
+   Servers MAY enforce policies based on the presence or absence of
+   expected identifier scopes in the ClientHello.  However, this
+   enforcement must be restricted to access control decisions prior to
+   authentication, such astriggering client authentication or rejecting
+   the handshake.
+
+4.3.  Identifier Scopes Enumeration
+
+   If ECH is not deployed, an attacker with network visibility may
+   collect workload identifier scopes by observing repeated TLS
+   handshakes.  This could aid in reconnaissance or allow inference of
+   infrastructure details.  To reduce this risk, clients may:
+
+   *  Use generic or opaque identifier scopes when full disclosure is
+      not required.
+
+   *  Limit use of the extension to trusted networks or peers.
+
+   *  Use ECH to encrypt the extension contents.
+
+4.4.  Server Response Behaviour
+
+   Servers receiving unknown or malformed identifier scopes SHOULD
+   ignore them and proceed with the default authentication policy.
+   Servers SHOULD NOT terminate connections solely due to unrecognised
+   identifier scopes unless explicitly configured to do so.
+
+5.  IANA Considerations
+
+   IANA is requested to assign a new value from the TLS ExtensionType
+   Values registry:
+
+   *  The Extension Name should be workload_identifier_scope_hint
+
+   *  The TLS 1.3 value should be CH
+
+   *  The DTLS-Only value should be N
+
+   *  The Recommended value should be Y
+
+   *  The Reference should be this document
+
+6.  Normative References
+
+   [ECH]      Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
+              Encrypted Client Hello", Work in Progress, Internet-Draft,
+              draft-ietf-tls-esni-25, 14 June 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
+              esni-25>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [TLS]      Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+   [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Yaroslav Rosomakho
+   Zscaler
+   Email: yrosomakho@zscaler.com
+
+
+   Jonathan Hoyland
+   Cloudflare
+   Email: jonathan.hoyland@gmail.com
