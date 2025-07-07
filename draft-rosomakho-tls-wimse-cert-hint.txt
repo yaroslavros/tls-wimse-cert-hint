@@ -4,8 +4,9 @@
 
 Transport Layer Security                                    Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Intended status: Standards Track                             7 July 2025
-Expires: 8 January 2026
+Intended status: Standards Track                              J. Hoyland
+Expires: 8 January 2026                                       Cloudflare
+                                                             7 July 2025
 
 
            Workload Identifier Scope Hint for TLS ClientHello
@@ -88,7 +89,7 @@ Table of Contents
    5.  IANA Considerations
    6.  Normative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -300,8 +301,13 @@ Acknowledgments
 
    TODO acknowledge.
 
-Author's Address
+Authors' Addresses
 
    Yaroslav Rosomakho
    Zscaler
    Email: yrosomakho@zscaler.com
+
+
+   Jonathan Hoyland
+   Cloudflare
+   Email: jonathan.hoyland@gmail.com

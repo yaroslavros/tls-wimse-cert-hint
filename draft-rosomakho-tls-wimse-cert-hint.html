@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Workload Identifier Scope Hint for TLS ClientHello</title>
 <meta content="Yaroslav Rosomakho" name="author">
+<meta content="Jonathan Hoyland" name="author">
 <meta content="
        This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the ClientHello message. Each scope consists of a URI scheme and trust domain component, representing the administrative domain and identifier namespace in which the client operates. These identifier scopes serve as hints to enable the server to determine whether client authentication is required and which policies or trust anchors should apply. This mechanism improves efficiency in mutual TLS deployments while minimising the exposure of sensitive identifier information. To protect confidentiality, this extension can be used in conjunction with Encrypted Client Hello (ECH). 
     " name="description">
@@ -1051,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Rosomakho</td>
+<td class="left">Rosomakho &amp; Hoyland</td>
 <td class="center">Expires 8 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1071,11 +1072,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2026-01-08">8 January 2026</time></dd>
-<dt class="label-authors">Author:</dt>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">Y. Rosomakho</div>
 <div class="org">Zscaler</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Hoyland</div>
+<div class="org">Cloudflare</div>
 </div>
 </dd>
 </dl>
@@ -1190,7 +1195,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1401,8 +1406,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Yaroslav Rosomakho</span></div>
@@ -1410,6 +1415,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <div class="email">
 <span>Email:</span>
 <a href="mailto:yrosomakho@zscaler.com" class="email">yrosomakho@zscaler.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jonathan Hoyland</span></div>
+<div dir="auto" class="left"><span class="org">Cloudflare</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:jonathan.hoyland@gmail.com" class="email">jonathan.hoyland@gmail.com</a>
 </div>
 </address>
 </section>
