@@ -31,6 +31,11 @@ author:
       fullname: Yaroslav Rosomakho
       organization: Zscaler
       email: yrosomakho@zscaler.com
+ -
+      ins: "J. Hoyland"
+      fullname: Jonathan Hoyland
+      organization: Cloudflare
+      email: jonathan.hoyland@gmail.com
 
 normative:
 
