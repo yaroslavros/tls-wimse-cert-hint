@@ -4,8 +4,8 @@
 
 Transport Layer Security                                    Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Intended status: Standards Track                             20 May 2025
-Expires: 21 November 2025
+Intended status: Standards Track                             7 July 2025
+Expires: 8 January 2026
 
 
            Workload Identifier Scope Hint for TLS ClientHello
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 November 2025.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -169,10 +169,10 @@ Table of Contents
    more than one trust domain or namespace.
 
    The extension MUST appear only in the ClientHello.  Servers MUST
-   abort TLS handshake with an unexpected_message alert if this
-   extension appears in any other handshake message.  Similarly, clients
-   MUST abort TLS handshake if this extension appears in any message
-   from the server.
+   abort TLS handshake with an illegal_parameter alert if this extension
+   appears in any other handshake message.  Similarly, clients MUST
+   abort TLS handshake if this extension appears in any message from the
+   server.
 
 3.1.  Server Processing Rules
 
@@ -274,9 +274,9 @@ Table of Contents
 
    [ECH]      Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-24, 20 March 2025,
+              draft-ietf-tls-esni-25, 14 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-24>.
+              esni-25>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
