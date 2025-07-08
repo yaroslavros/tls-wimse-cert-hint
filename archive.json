@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T01:20:51.364093+00:00",
+  "timestamp": "2025-07-08T01:14:56.312127+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -50,5 +50,34 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOOo3gl86dykBE",
+      "title": "Add Jonathan Hoyland as co-author",
+      "url": "https://github.com/yaroslavros/tls-wimse-cert-hint/pull/1",
+      "state": "MERGED",
+      "author": "jhoyla",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-07T16:13:03Z",
+      "updatedAt": "2025-07-07T16:14:57Z",
+      "baseRepository": "yaroslavros/tls-wimse-cert-hint",
+      "baseRefName": "main",
+      "baseRefOid": "2d7adf7bc4ab9ef81e54b311faa35c6ef7dd23bb",
+      "headRepository": "yaroslavros/tls-wimse-cert-hint",
+      "headRefName": "jhoyla/add-jhoyla",
+      "headRefOid": "a1a781c2f56e1a1cd9e483b2ea955f0bb0a5e432",
+      "closedAt": "2025-07-07T16:14:56Z",
+      "mergedAt": "2025-07-07T16:14:56Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "2c9c8ca465f17b54d29b52055bdc146e25345001"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
