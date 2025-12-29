@@ -53,7 +53,7 @@ This document defines a TLS extension that allows clients to indicate one or mor
 
 Mutual TLS (mTLS) is commonly used to authenticate both endpoints of a {{!TLS=RFC8446}} connection, especially in service-to-service communication within distributed systems. In many deployments, client authentication is conditional: only certain clients are required to present a certificate, and the decision is based on the nature of the client.
 
-This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the `ClientHello` message ({{Section 4.1.2 of TLS}}). Each identifier scope is a subset of Workload Identifier [Reference TBD] and consists of a URI scheme and trust domain (e.g., `spiffe://example.org` or `https://botfarm.example.com`) and indicates a namespace under which the client may present an authenticated identifier. Workload identifier scopes act as hints that inform the server of the client intended identifier before the TLS handshake is completed. Based on this information, the server can determine whether client certificate authentication is desirable and, if so, what policy or certificate validation rules should apply.
+This document defines a TLS extension that allows clients to indicate one or more workload identifier scopes in the `ClientHello` message ({{Section 4.1.2 of TLS}}). As defined in {{Section 4.5 of !WIMSE-IDENTIFIER=I-D.ietf-wimse-identifier}}, workload identifier scope is a subset of workload identifier and consists of a URI scheme and a trust domain (e.g., `spiffe://example.org` or `wimse://botfarm.example.com`). It indicates a namespace under which the client may present an authenticated identifier. Workload identifier scopes act as hints that inform the server of the client intended identifier before the TLS handshake is completed. Based on this information, the server can determine whether client certificate authentication is desirable and, if so, what policy or certificate validation rules should apply.
 
 This approach enables more flexible and efficient authentication strategies in environments where different clients may be subject to different requirements. For example:
 
@@ -83,9 +83,9 @@ The `workload_identifier_scope_hint` extension is structured as follows:
 
 `identifierscopes`:
 
-: A list of UTF-8 encoded absolute URI absolute URI strings as defined in {{!URI=RFC3986}} containing only the scheme and trust domain components of Workload Identifiers defined in TBD.
+: A list of UTF-8 encoded absolute URI strings as defined in {{!URI=RFC3986}} containing only the scheme and trust domain components of Workload Identifiers as defined in {{Section 4.5 of WIMSE-IDENTIFIER}}.
 
-The path, query, and fragment components MUST NOT be included. Clients MAY include multiple identity scopes if they operate within more than one trust domain or namespace.
+Clients MAY include multiple identity scopes if they operate within more than one trust domain or namespace.
 
 The extension MUST appear only in the ClientHello. Servers MUST abort TLS handshake with an `illegal_parameter` alert if this extension appears in any other handshake message. Similarly, clients MUST abort TLS handshake if this extension appears in any message from the server.
 
