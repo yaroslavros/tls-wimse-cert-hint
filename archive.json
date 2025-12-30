@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-28T01:24:32.493330+00:00",
+  "timestamp": "2025-12-30T01:16:41.992464+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -76,6 +76,32 @@
       "mergeCommit": {
         "oid": "2c9c8ca465f17b54d29b52055bdc146e25345001"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOOo3gl8664iLj",
+      "title": "Updated wimse identifier reference",
+      "url": "https://github.com/yaroslavros/tls-wimse-cert-hint/pull/2",
+      "state": "OPEN",
+      "author": "yaroslavros",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Workload identifier scopes are now defined in draft-ietf-wimse-identifier. Updated text accordingly.",
+      "createdAt": "2025-12-29T23:10:11Z",
+      "updatedAt": "2025-12-29T23:10:11Z",
+      "baseRepository": "yaroslavros/tls-wimse-cert-hint",
+      "baseRefName": "main",
+      "baseRefOid": "2c9c8ca465f17b54d29b52055bdc146e25345001",
+      "headRepository": "yaroslavros/tls-wimse-cert-hint",
+      "headRefName": "wimse-identifier-adopted",
+      "headRefOid": "1f1775846c2a2a16519e744189706d8f835d79cc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
