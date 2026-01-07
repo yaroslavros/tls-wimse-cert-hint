@@ -5,8 +5,8 @@
 Transport Layer Security                                    Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Intended status: Standards Track                              J. Hoyland
-Expires: 8 January 2026                                       Cloudflare
-                                                             7 July 2025
+Expires: 11 July 2026                                         Cloudflare
+                                                          7 January 2026
 
 
            Workload Identifier Scope Hint for TLS ClientHello
@@ -59,11 +59,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 11 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -102,16 +102,16 @@ Table of Contents
 
    This document defines a TLS extension that allows clients to indicate
    one or more workload identifier scopes in the ClientHello message
-   (Section 4.1.2 of [TLS]).  Each identifier scope is a subset of
-   Workload Identifier [Reference TBD] and consists of a URI scheme and
-   trust domain (e.g., spiffe://example.org or
-   https://botfarm.example.com) and indicates a namespace under which
-   the client may present an authenticated identifier.  Workload
-   identifier scopes act as hints that inform the server of the client
-   intended identifier before the TLS handshake is completed.  Based on
-   this information, the server can determine whether client certificate
-   authentication is desirable and, if so, what policy or certificate
-   validation rules should apply.
+   (Section 4.1.2 of [TLS]).  As defined in Section 4.5 of
+   [WIMSE-IDENTIFIER], workload identifier scope is a subset of workload
+   identifier and consists of a URI scheme and a trust domain (e.g.,
+   spiffe://example.org or wimse://botfarm.example.com).  It indicates a
+   namespace under which the client may present an authenticated
+   identifier.  Workload identifier scopes act as hints that inform the
+   server of the client intended identifier before the TLS handshake is
+   completed.  Based on this information, the server can determine
+   whether client certificate authentication is desirable and, if so,
+   what policy or certificate validation rules should apply.
 
    This approach enables more flexible and efficient authentication
    strategies in environments where different clients may be subject to
@@ -161,11 +161,11 @@ Table of Contents
           WorkloadIdentifierScope identifierscopes<3..2^16-1>;
       } WorkloadIdentifierScopeHintExtension;
 
-   identifierscopes:  A list of UTF-8 encoded absolute URI absolute URI
-      strings as defined in [URI] containing only the scheme and trust
-      domain components of Workload Identifiers defined in TBD.
+   identifierscopes:  A list of UTF-8 encoded absolute URI strings as
+      defined in [URI] containing only the scheme and trust domain
+      components of Workload Identifiers as defined in Section 4.5 of
+      [WIMSE-IDENTIFIER].
 
-   The path, query, and fragment components MUST NOT be included.
    Clients MAY include multiple identity scopes if they operate within
    more than one trust domain or namespace.
 
@@ -296,6 +296,13 @@ Table of Contents
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [WIMSE-IDENTIFIER]
+              Rosomakho, Y. and J. A. Salowey, "Workload Identifier",
+              Work in Progress, Internet-Draft, draft-ietf-wimse-
+              identifier-01, 29 December 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-wimse-
+              identifier-01>.
 
 Acknowledgments
 
