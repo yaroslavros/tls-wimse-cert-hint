@@ -83,7 +83,7 @@ The `workload_identifier_scope_hint` extension is structured as follows:
 
 `identifierscopes`:
 
-: A list of UTF-8 encoded absolute URI strings as defined in {{!URI=RFC3986}} containing only the scheme and trust domain components of Workload Identifiers as defined in {{Section 4.5 of WIMSE-IDENTIFIER}}.
+: A list of UTF-8 encoded absolute URI strings as defined in {{!URI=RFC3986}} containing only the scheme and trust domain components of Workload Identifiers as defined in {{Section 4.5 of WIMSE-IDENTIFIER}}. In addition to the URI rules specified in {{Section 4.1 of WIMSE-IDENTIFIER}}, URI strings MUST NOT contain a path component.
 
 Clients MAY include multiple identity scopes if they operate within more than one trust domain or namespace.
 
