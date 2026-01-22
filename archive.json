@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-20T01:18:11.040089+00:00",
+  "timestamp": "2026-01-22T01:20:47.033892+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -104,6 +104,32 @@
       "mergeCommit": {
         "oid": "88d2c40089718f1df366cdfe10b0ae4368565409"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOOo3gl86-PRzk",
+      "title": "Added MUST NOT to require omit path component of URI",
+      "url": "https://github.com/yaroslavros/tls-wimse-cert-hint/pull/3",
+      "state": "OPEN",
+      "author": "frumioj",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The current text had no statement requiring omission of a path component, and I think it needs that.",
+      "createdAt": "2026-01-20T15:16:44Z",
+      "updatedAt": "2026-01-20T15:16:45Z",
+      "baseRepository": "yaroslavros/tls-wimse-cert-hint",
+      "baseRefName": "main",
+      "baseRefOid": "88d2c40089718f1df366cdfe10b0ae4368565409",
+      "headRepository": "frumioj/tls-wimse-cert-hint",
+      "headRefName": "patch-1",
+      "headRefOid": "92705c052fc0bf35bee3538a1c926d54008378c0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
