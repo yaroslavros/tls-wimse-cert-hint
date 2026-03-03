@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-01T01:52:42.726740+00:00",
+  "timestamp": "2026-03-03T01:47:25.709253+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -130,6 +130,34 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOOo3gl87HMBDH",
+      "title": "Renamed scopes to origins",
+      "url": "https://github.com/yaroslavros/tls-wimse-cert-hint/pull/4",
+      "state": "MERGED",
+      "author": "yaroslavros",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-03-01T22:11:29Z",
+      "updatedAt": "2026-03-02T23:22:21Z",
+      "baseRepository": "yaroslavros/tls-wimse-cert-hint",
+      "baseRefName": "main",
+      "baseRefOid": "88d2c40089718f1df366cdfe10b0ae4368565409",
+      "headRepository": "yaroslavros/tls-wimse-cert-hint",
+      "headRefName": "origin",
+      "headRefOid": "146f6afa60bed4bed706a715fb739d6b57667e30",
+      "closedAt": "2026-03-02T23:22:21Z",
+      "mergedAt": "2026-03-02T23:22:20Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "3e42fac01bd41d384fe2c1105b2ad57f83e145ff"
+      },
       "comments": [],
       "reviews": []
     }
