@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-08T03:57:27.600080+00:00",
+  "timestamp": "2026-11-10T05:40:51.109624+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -166,6 +166,32 @@
       "mergeCommit": {
         "oid": "3e42fac01bd41d384fe2c1105b2ad57f83e145ff"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOOo3gl88AAAABNtzHaA",
+      "title": "Empty list is perfectly valid and useful",
+      "url": "https://github.com/yaroslavros/tls-wimse-cert-hint/pull/5",
+      "state": "OPEN",
+      "author": "yaroslavros",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Also updated references and some text about ECH.",
+      "createdAt": "2026-11-08T21:44:01Z",
+      "updatedAt": "2026-11-08T21:44:01Z",
+      "baseRepository": "yaroslavros/tls-wimse-cert-hint",
+      "baseRefName": "main",
+      "baseRefOid": "3e42fac01bd41d384fe2c1105b2ad57f83e145ff",
+      "headRepository": "yaroslavros/tls-wimse-cert-hint",
+      "headRefName": "allow-empty",
+      "headRefOid": "968f1e51be4a3a83e86ee9947dc7f37bbf963427",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
