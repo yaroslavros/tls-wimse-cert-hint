@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-17T06:08:17.942438+00:00",
+  "timestamp": "2026-11-19T05:35:17.361696+00:00",
   "repo": "yaroslavros/tls-wimse-cert-hint",
   "labels": [
     {
@@ -181,7 +181,7 @@
       "labels": [],
       "body": "Also updated references and some text about ECH.",
       "createdAt": "2026-11-08T21:44:01Z",
-      "updatedAt": "2026-11-08T21:44:01Z",
+      "updatedAt": "2026-11-18T22:15:45Z",
       "baseRepository": "yaroslavros/tls-wimse-cert-hint",
       "baseRefName": "main",
       "baseRefOid": "3e42fac01bd41d384fe2c1105b2ad57f83e145ff",
@@ -193,7 +193,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOOo3gl88AAAABY5rGew",
+          "commit": {
+            "abbreviatedOid": "968f1e5"
+          },
+          "author": "jhoyla",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-18T22:15:45Z",
+          "updatedAt": "2026-11-18T22:15:45Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
